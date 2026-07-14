@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Nurzhan! ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           PREMIUM THEME CORE VARIABLES & RESET
+           ========================================== */
+        :root {
+            --bg-gradient: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #f6d365, #c2e9fb);
+            --primary-glow: rgba(255, 105, 180, 0.6);
+            --gold-glow: rgba(255, 215, 0, 0.6);
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --transition-premium: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: var(--font-sans);
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: shiftingGradient 22s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        @keyframes shiftingGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Particles Containers */
+        #sparkle-container, #confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #fireworks-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            mix-blend-mode: screen;
+        }
+
+        #viewport-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 3s var(--transition-premium);
+            z-index: 10;
+        }
+
+        .scene-zoom {
+            transform: scale(1.08);
+        }
+
+        /* Scenes state */
+        .active-scene {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 1.5s var(--transition-premium), transform 1.5s var(--transition-premium);
+        }
+
+        .hidden-scene {
+            display: none !important;
+            opacity: 0;
+            transform: scale(0.85) translateY(30px);
+            transition: opacity 1.5s var(--transition-premium), transform 1.5s var(--transition-premium);
+        }
+
+        /* Scene 1 Card */
+        #scene-opening {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 3.5rem 2.5rem;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(31, 38, 135, 0.15),
+                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: cardFloat 6s ease-in-out infinite;
+            z-index: 11;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(0.5deg); }
+        }
+
+        .card-header-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: pulseIcon 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+        h1.sparkle-text {
+            font-family: var(--font-serif);
+            font-weight: 800;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #ff0055, #ff50a8, #ffd700, #ff0055);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShimmer 5s linear infinite;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        @keyframes gradientShimmer {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        .recipient-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #4a4a6a;
+            margin: 0.8rem 0 1.5rem 0;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 5px rgba(255,255,255,0.8);
+        }
+
+        .birthday-wish {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #555577;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 2.5rem;
+            padding: 0 10px;
+        }
+
+        /* Premium Button */
+        .premium-btn {
+            position: relative;
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e53 50%, #ffc107 100%);
+            border: none;
+            outline: none;
+            padding: 1.1rem 2.5rem;
+            border-radius: 50px;
+            color: white;
+            font-family: var(--font-sans);
+            font-weight: 800;
+            font-size: 1.15rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 107, 139, 0.4);
+            transition: all 0.4s var(--transition-premium);
+            overflow: hidden;
+        }
+
+        .premium-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 107, 139, 0.6), 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .premium-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .btn-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .premium-btn:hover .btn-glow {
+            transform: translateX(100%);
+        }
+
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: rippleEffect 0.75s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Scene 2 Cake */
+        #scene-cake {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .cake-orchestrator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            animation: cakeFloating 4s ease-in-out infinite;
+        }
+
+        @keyframes cakeFloating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .giant-cake {
+            font-size: 9.5rem;
+            line-height: 1;
+            user-select: none;
+            transform: scale(0);
+            animation: bounceInCake 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes bounceInCake {
+            0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+            70% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .candles-wrapper {
+            display: flex;
+            gap: 12px;
+            margin-bottom: -10px;
+            z-index: 5;
+        }
+
+        .candle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 2.8rem;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .flame {
+            font-size: 1.5rem;
+            margin-bottom: -15px;
+            animation: flameFlicker 0.15s ease-in-out infinite alternate;
+            transform-origin: bottom center;
+        }
+
+        @keyframes flameFlicker {
+            0% { transform: scaleY(1) rotate(-2deg); filter: brightness(1); }
+            100% { transform: scaleY(1.15) rotate(3deg); filter: brightness(1.2) drop-shadow(0 0 6px var(--gold-glow)); }
+        }
+
+        #blowing-wind-container {
+            position: absolute;
+            width: 250px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .wind-particle {
+            position: absolute;
+            font-size: 2.2rem;
+            opacity: 0;
+            transform: translateX(-150px) scale(0.5);
+            animation: windBlow 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes windBlow {
+            0% { opacity: 0; transform: translateX(-150px) scale(0.5); }
+            30% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(180px) scale(1.5) rotate(15deg); }
+        }
+
+        /* Scene 3 Final Screen */
+        #scene-final {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .final-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 650px;
+            padding: 0 24px;
+            z-index: 12;
+        }
+
+        .heart-wrapper {
+            margin-bottom: 2rem;
+        }
+
+        .giant-heart {
+            display: inline-block;
+            font-size: 6.5rem;
+            user-select: none;
+            animation: smoothHeartbeat 1.4s infinite ease-in-out;
+        }
+
+        @keyframes smoothHeartbeat {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 75, 110, 0.4)); }
+            14% { transform: scale(1.18); filter: drop-shadow(0 0 25px rgba(255, 75, 110, 0.8)); }
+            28% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 75, 110, 0.4)); }
+            42% { transform: scale(1.18); filter: drop-shadow(0 0 25px rgba(255, 75, 110, 0.8)); }
+            70% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 75, 110, 0.4)); }
+        }
+
+        .typewriter-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        #final-message-text {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: #3b3b5c;
+            font-weight: 600;
+            min-height: 120px;
+        }
+
+        .typewriter-cursor::after {
+            content: '|';
+            display: inline-block;
+            color: #ff3b6c;
+            margin-left: 2px;
+            animation: caretBlink 0.75s step-end infinite;
+        }
+
+        @keyframes caretBlink {
+            from, to { color: transparent }
+            50% { color: #ff3b6c; }
+        }
+
+        /* Global Sparkles ✨ */
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+            font-size: 1.5rem;
+            animation: riseAndFade var(--duration) ease-in-out var(--delay) infinite;
+            transform: translate3d(0, 0, 0);
+            will-change: transform, opacity;
+        }
+
+        @keyframes riseAndFade {
+            0% {
+                transform: translateY(105vh) translateX(0) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: var(--max-opacity); }
+            90% { opacity: var(--max-opacity); }
+            100% {
+                transform: translateY(-10vh) translateX(var(--drift)) scale(var(--scale)) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* Confetti 🎉 */
+        .confetti {
+            position: absolute;
+            pointer-events: none;
+            user-select: none;
+            z-index: 3;
+            animation: fallAndSway var(--duration) linear forwards;
+            will-change: transform, opacity;
+        }
+
+        @keyframes fallAndSway {
+            0% {
+                transform: translate3d(var(--start-x), -10vh, 0) rotate(0deg) scale(0.3);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+                transform: translate3d(var(--mid-x), 15vh, 0) rotate(120deg) scale(var(--scale));
+            }
+            100% {
+                transform: translate3d(var(--end-x), 110vh, 0) rotate(var(--spin)) scale(var(--scale));
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1.sparkle-text { font-size: 2.25rem; }
+            .recipient-name { font-size: 1.5rem; }
+            .birthday-wish { font-size: 1rem; margin-bottom: 2rem; }
+            .giant-cake { font-size: 7.5rem; }
+            .candles-wrapper { gap: 8px; }
+            .candle { font-size: 2.2rem; }
+            .flame { font-size: 1.2rem; }
+            #final-message-text { font-size: 1.25rem; line-height: 1.6; }
+            .giant-heart { font-size: 5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sparkle-container"></div>
+    <canvas id="fireworks-canvas"></canvas>
+    <div id="confetti-container"></div>
+
+    <main id="viewport-wrapper">
+        <section id="scene-opening" class="active-scene">
+            <div class="glass-card">
+                <div class="card-header-icon">🎂</div>
+                <h1 class="sparkle-text">Happy Birthday!</h1>
+                <h2 class="recipient-name">Dear Nurzhan ❤️</h2>
+                <p class="birthday-wish">
+                    "Wishing you endless happiness, love, health, success and all your dreams come true."
+                </p>
+                <button id="btn-open-surprise" class="premium-btn">
+                    <span>🎁 Open Surprise</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+        </section>
+
+        <section id="scene-cake" class="hidden-scene">
+            <div class="cake-orchestrator">
+                <div id="blowing-wind-container"></div>
+                <div class="candles-wrapper">
+                    <div class="candle" id="candle-1">
+                        <span class="flame">🔥</span>
+                        <span class="wax">🕯️</span>
+                    </div>
+                    <div class="candle" id="candle-2">
+                        <span class="flame">🔥</span>
+                        <span class="wax">🕯️</span>
+                    </div>
+                    <div class="candle" id="candle-3">
+                        <span class="flame">🔥</span>
+                        <span class="wax">🕯️</span>
+                    </div>
+                </div>
+                <div class="giant-cake">🎂</div>
+            </div>
+        </section>
+
+        <section id="scene-final" class="hidden-scene">
+            <div class="final-layout">
+                <div class="heart-wrapper">
+                    <span class="giant-heart">❤️</span>
+                </div>
+                <div class="typewriter-container">
+                    <h2 id="final-message-text"></h2>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <audio id="birthday-audio" loop preload="auto">
+        <source src="https://assets.codepen.io/4358584/An+Instrumental+Happy+Birthday.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sparkleContainer = document.getElementById('sparkle-container');
+            const confettiContainer = document.getElementById('confetti-container');
+            const viewportWrapper = document.getElementById('viewport-wrapper');
+            const btnOpenSurprise = document.getElementById('btn-open-surprise');
+            const audio = document.getElementById('birthday-audio');
+            
+            const sceneOpening = document.getElementById('scene-opening');
+            const sceneCake = document.getElementById('scene-cake');
+            const sceneFinal = document.getElementById('scene-final');
+
+            // 1. Ambient Background Sparkles ✨
+            for (let i = 0; i < 40; i++) { spawnSparkle(true); }
+            setInterval(() => { if (!document.hidden) spawnSparkle(false); }, 120);
+
+            function spawnSparkle(initialRandomY) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.innerText = '✨';
+
+                const duration = Math.random() * 6 + 6;
+                const delay = Math.random() * -10;
+                const scale = Math.random() * 0.7 + 0.4;
+                const opacity = Math.random() * 0.6 + 0.4;
+                const startX = Math.random() * 100;
+                const drift = Math.random() * 150 - 75;
+                const rot = Math.random() * 360 + 180;
+
+                sparkle.style.left = `${startX}vw`;
+                sparkle.style.setProperty('--duration', `${duration}s`);
+                sparkle.style.setProperty('--delay', `${initialRandomY ? delay : 0}s`);
+                sparkle.style.setProperty('--scale', scale);
+                sparkle.style.setProperty('--max-opacity', opacity);
+                sparkle.style.setProperty('--drift', `${drift}px`);
+                sparkle.style.setProperty('--rot', `${rot}deg`);
+
+                if (initialRandomY) {
+                    const startY = Math.random() * 100;
+                    sparkle.style.transform = `translateY(-${startY}vh)`;
+                }
+                sparkleContainer.appendChild(sparkle);
+                setTimeout(() => { sparkle.remove(); }, (duration + (initialRandomY ? 0 : 2)) * 1000);
+            }
+
+            // 2. Button Handlers
+            btnOpenSurprise.addEventListener('click', (e) => {
+                createRipple(e);
+                if (audio) {
+                    audio.volume = 0.5;
+                    audio.play().catch(err => console.log("Audio blocked by browser sandbox policy", err));
+                }
+                startSurpriseSequence();
+            });
+
+            function createRipple(event) {
+                const button = event.currentTarget;
+                const circle = document.createElement('span');
+                const diameter = Math.max(button.clientWidth, button.clientHeight);
+                const radius = diameter / 2;
+                circle.style.width = circle.style.height = `${diameter}px`;
+                circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+                circle.style.top = `$
